@@ -1,0 +1,150 @@
+@use "sass:color";
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
+
+// --- Variables ---
+$primary-blue: #0076c0; 
+$widget-bg: #ffffff;
+$input-border: #cccccc;
+$text-dark: #333333;
+$text-light: #ffffff;
+$radius: 20px;
+$radius-small: 8px;
+$font-stack: 'Open Sans', sans-serif;
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body, html {
+  height: 100%;
+  font-family: $font-stack;
+  color: $text-dark;
+}
+
+// --- Background ---
+.background-container {
+  background: url('../car-finder-bg.jpg') no-repeat center center fixed; 
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+// --- Main Layout ---
+.content-container {
+  width: 90%;
+  max-width: 960px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+}
+
+.main-header {
+  color: $text-light;
+  margin-bottom: 20px; 
+  text-align: left;
+
+  h1 {
+    text-transform: uppercase;
+    font-weight: 800; 
+    font-size: 2rem; 
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+    text-shadow: 1px 1px 10px rgba(0,0,0,0.5);
+  }
+
+  p {
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-shadow: 1px 1px 10px rgba(0,0,0,0.5);
+  }
+}
+
+.search-widget {
+  background-color: $widget-bg;
+  padding: 30px; 
+  border-radius: $radius;
+  width: 100%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.search-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-end; 
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+// --- Input Groups ---
+.input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column-reverse;
+  position: relative; 
+  
+  &:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -11px;
+    width: 2px;
+    height: 100px;
+    background-color: #dcdcdc;
+  }
+
+  @media (max-width: 768px) {
+    &:not(:last-child)::after {
+      display: none;
+    }
+  }
+  
+  label {
+    color: $text-dark;
+    margin-bottom: 30px;
+    font-size: 1.3rem;
+    font-weight: 700; 
+    text-transform: uppercase;
+    transition: color 0.2s ease; // Smooth color transition
+  }
+
+  select {
+    width: 100%;
+    height: 45px; 
+    padding: 0 15px;
+    background-color: #fff;
+    border: 1px solid $input-border;
+    border-radius: $radius-small;
+    color: $text-dark;
+    font-family: $font-stack;
+    font-size: 0.95rem;
+    cursor: pointer;
+    
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 12px;
+
+    &:disabled {
+      background-color: #f4f4f4;
+      color: #999;
+      cursor: not-allowed;
+    }
+
+    // When focused (clicked on), label turns blue
+    &:focus {
+      outline: none;
+      border-color: $primary-blue;
+    }
+
+    // Logic for the Label "Glow"
+    &:focus + label,
+    &:valid + label {
+      color: $primary-blue;
+      text-shadow: 0 0 1px rgba(0, 118, 192, 0.3); // Subtle glow effect
+    }
+  }
+}
